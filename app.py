@@ -13,6 +13,7 @@ hide_st_style = """
     </style>
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+st.header('Sports Analysis')
 
 #st.title('This is Tanvir')
 nav = st.sidebar.radio("Navigation", ["Home", "Prediction", "Conribute"])
