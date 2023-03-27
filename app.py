@@ -21,5 +21,8 @@ with st.sidebar:
         icons=['house', 'gear'], menu_icon="cast", default_index=0)
     
 st.title('Dashboard')
-df_nba = pd.read_excel('PrizePicksDashboard.xlsx')
-st.dataframe(df_nba)
+xls_file = pd.ExcelFile('PrizePicksDashboard.xlsx')
+df_nba = pd.read_excel(xls_file, sheet_name='PrizePicksNBA')
+df_nhl = pd.read_excel(xls_file, sheet_name='PrizePicksNHL')
+st.dataframe(df_nba)  
+st.dataframe(df_nhl)
