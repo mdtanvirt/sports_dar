@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from streamlit_option_menu import option_menu
 
-#st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 
 # Hide streamlit default menu and footer from the template
 hide_st_style = """
@@ -13,7 +13,7 @@ hide_st_style = """
     header {visibility: hidden}
     </style>
 """
-#st.markdown(hide_st_style, unsafe_allow_html=True)
+st.markdown(hide_st_style, unsafe_allow_html=True)
 #st.header('Sports Analysis')
 
 #st.title('This is Tanvir')
