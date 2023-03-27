@@ -19,3 +19,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 with st.sidebar:
     sselected = option_menu("Main Menu", ["Home", 'Settings'], 
         icons=['house', 'gear'], menu_icon="cast", default_index=0)
+    
+st.title('Dashboard')
+df_nba = pd.read_excel('PrizePicksDashboard.xlsx')
+st.dataframe(df_nba)
