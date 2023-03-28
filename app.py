@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 from streamlit_option_menu import option_menu
+from streamlit_extras.dataframe_explorer import dataframe_explorer
 
 st.set_page_config(layout="wide")
 
@@ -24,8 +24,65 @@ with st.sidebar:
 
 # for Home
 if selected == 'Home':
-    st.title('This is home page')
+    st.markdown("<h1 style='text-align: center;'>Welcome<br> to Prize Picks Dashboard <br> Data visualization in sports </h1>", unsafe_allow_html=True)
 
+    st.markdown(
+    """
+    <style>
+        div[data-testid="column"]:nth-of-type(1)
+        {
+            text-align: center;
+            height: 500px;
+        } 
+
+        div[data-testid="column"]:nth-of-type(2)
+        {
+            text-align: center;
+        }
+        div[data-testid="column"]:nth-of-type(3)
+        {
+            text-align: center;
+        } 
+    </style>
+    """,unsafe_allow_html=True
+    )            
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        """
+        ## Sports Dashboard
+        """
+        ch_col1, ch_col2 = st.columns([1, 2])
+        ch_col1.image("computer_data.png")
+        with ch_col2:
+            st.write('Easily View Lines Across Books')
+            st.write('Find The Top Picks in Seconds')
+            st.write('Display Adjusted Odds Based Various Calculations')
+            st.write('Efficiently Build Slips for many DFS sites')
+
+    with col2:
+        """
+        ## SportsBook Player Props
+        """
+        ch_col3, ch_col4 = st.columns([1, 2])
+        ch_col3.image("clipboard.png")
+        with ch_col4:
+            st.write('Compare Lines/Odds from Many Books')
+            st.write('Easily Filterable')
+            st.write('Draftkings, Pinnacle, Betonline, and Bovada')
+            st.write('Currently Offered and many more to come')
+
+    with col3:
+        """
+        ## Player Stats 
+        """
+        ch_col5, ch_col6 = st.columns([1, 2])
+        ch_col5.image("crown.png")
+        with ch_col6:
+            st.write('Coming Soon')
+            st.write('Display Historical Stats')
+            st.write('Over/Under Hit Rate')
+            st.write('Projected Stats')
 
 # for Dashboard
 if selected == 'Prize Pick Dashboard':
@@ -33,7 +90,10 @@ if selected == 'Prize Pick Dashboard':
 
     if dataset_option == 'NBA':
         df_nba = pd.read_excel(xls_file, sheet_name='PrizePicksNBA')
-        st.dataframe(df_nba)
+        #st.dataframe(df_nba)
+        #nba_columns = ['Team Name', 'Player', 'Prop']
+        filtered_df = dataframe_explorer(df_nba)
+        st.dataframe(df_nba, use_container_width=True)
 
     if dataset_option == 'HNL':
         df_nhl = pd.read_excel(xls_file, sheet_name='PrizePicksNHL')
