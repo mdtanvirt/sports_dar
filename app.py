@@ -14,15 +14,31 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 #st.header('Sports Analysis')
 
-#st.title('This is Tanvir')
-#nav = st.sidebar.radio("Navigation", ["Home", "Prediction", "Conribute"])
-with st.sidebar:
-    sselected = option_menu("Main Menu", ["Home", 'Settings'], 
-        icons=['house', 'gear'], menu_icon="cast", default_index=0)
-    
-st.title('Dashboard')
+# Read data
 xls_file = pd.ExcelFile('PrizePicksDashboard.xlsx')
-df_nba = pd.read_excel(xls_file, sheet_name='PrizePicksNBA')
-df_nhl = pd.read_excel(xls_file, sheet_name='PrizePicksNHL')
-st.dataframe(df_nba)  
-st.dataframe(df_nhl)
+
+with st.sidebar:
+    selected = option_menu("Main Menu", ["Home", 'Prize Pick Dashboard', 'Manage Subscription'], 
+        icons=['house', 'speedometer', 'tags'], menu_icon="cast", default_index=0)
+    st.button('Login')
+
+# for Home
+if selected == 'Home':
+    st.title('This is home page')
+
+
+# for Dashboard
+if selected == 'Prize Pick Dashboard':
+    dataset_option = st.sidebar.selectbox('Select Sports',('NBA', 'HNL'))
+
+    if dataset_option == 'NBA':
+        df_nba = pd.read_excel(xls_file, sheet_name='PrizePicksNBA')
+        st.dataframe(df_nba)
+
+    if dataset_option == 'HNL':
+        df_nhl = pd.read_excel(xls_file, sheet_name='PrizePicksNHL')
+        st.dataframe(df_nhl)
+
+# for Subscription
+if selected == 'Manage Subscription':
+    st.title('Comming soon')
