@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from streamlit_option_menu import option_menu
 from streamlit_extras.dataframe_explorer import dataframe_explorer
+from ipyvizzu import Chart, Data, Config, Style
 
 st.set_page_config(layout="wide")
 
@@ -86,19 +87,35 @@ if selected == 'Home':
 
 # for Dashboard
 if selected == 'Prize Pick Dashboard':
-    dataset_option = st.sidebar.selectbox('Select Sports',('NBA', 'HNL'))
+    st.sidebar.header('Data filtering metrix:')
+    dataset_option = st.sidebar.selectbox('Select sports',('NBA', 'HNL'))
 
     if dataset_option == 'NBA':
         df_nba = pd.read_excel(xls_file, sheet_name='PrizePicksNBA')
         #st.dataframe(df_nba)
-        #nba_columns = ['Team Name', 'Player', 'Prop']
-        filtered_df = dataframe_explorer(df_nba)
-        st.dataframe(df_nba, use_container_width=True)
+        st.header('NBA Dataset')
+        team_name_nba = st.sidebar.multiselect(
+            'Select NBA Team',
+            options=df_nba['Team Name'].unique().tolist(),
+            default=df_nba['Team Name'].unique()
+        )
+
+        filtered_nba_df = df_nba[df_nba["Team Name"].isin(team_name_nba)]
+        st.dataframe(filtered_nba_df)
 
     if dataset_option == 'HNL':
         df_nhl = pd.read_excel(xls_file, sheet_name='PrizePicksNHL')
-        st.dataframe(df_nhl)
+        #st.dataframe(df_nhl)
+        st.header('HNL Dataset')
+        team_name_nhl = st.sidebar.multiselect(
+            'Select NHL Team',
+            options=df_nhl['Team Name'].unique().tolist(),
+            default=df_nhl['Team Name'].unique()
+        )
 
+        filtered_nha_df = df_nhl[df_nhl["Team Name"].isin(team_name_nhl)]
+        st.dataframe(filtered_nha_df)
+        
 # for Subscription
 if selected == 'Manage Subscription':
     st.title('Comming soon')
